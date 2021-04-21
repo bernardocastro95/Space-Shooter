@@ -9,15 +9,18 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     private bool _stopSpawn = false;
+    [SerializeField]
+    private GameObject _tripleShotPowerupPrefab;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnTripleShotPowerupRoutine());
     }
 
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
         while (_stopSpawn == false)
         {
@@ -25,6 +28,16 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5.0f);
+        }
+    }
+    IEnumerator SpawnTripleShotPowerupRoutine()
+    {
+        while(_stopSpawn == false)
+        {
+            Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            GameObject newTripleShotPowerup = Instantiate(_tripleShotPowerupPrefab, postToSpawn, Quaternion.identity);
+            newTripleShotPowerup.transform.parent = _tripleShotPowerupPrefab.transform;
+            yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }
 
