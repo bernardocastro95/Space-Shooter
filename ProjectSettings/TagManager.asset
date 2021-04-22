@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Laser
-  - Powerup
+  - TripleShotPowerup
+  - SpeedPowerup
   layers:
   - Default
   - TransparentFX

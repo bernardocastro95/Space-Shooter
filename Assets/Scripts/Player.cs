@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
+    private float _multiplier = 2f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -16,7 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
-    private bool _isTripleShotEnabled;
+    private bool _isTripleShotEnabled = false;
+    private bool _isSpeedBoostEnabled = false;
+    private bool _isShieldEnabled = false;
     
     // Start is called before the first frame update
     void Start()
@@ -35,16 +38,10 @@ public class Player : MonoBehaviour
     {
         Tracker();
 
-
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             Shooter();
         }
-
-
-       
-       
     }
 
     void Tracker()
@@ -53,8 +50,8 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-
-        transform.Translate(direction * _speed * Time.deltaTime);
+      
+            transform.Translate(direction * ( _speed * _multiplier) * Time.deltaTime);
 
         if (transform.position.y >= 0 || transform.position.y <= 3.8f)
         {
@@ -100,9 +97,31 @@ public class Player : MonoBehaviour
         _isTripleShotEnabled = true;
         StartCoroutine(TripleShotPowerupRoutine());
     }
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostEnabled = true;
+        _speed *= _multiplier;
+        StartCoroutine(SppedPowerupRoutine());
+    }
+    public void ShieldEnabled()
+    {
+        _isShieldEnabled = true;
+        StartCoroutine(ShieldPowerupCoroutine());
+    }
     IEnumerator TripleShotPowerupRoutine()
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShotEnabled = false;
+    }
+    IEnumerator SppedPowerupRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _speed /= _multiplier;
+        _isSpeedBoostEnabled = false;
+    }
+    IEnumerator ShieldPowerupCoroutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isShieldEnabled = false;
     }
 }
