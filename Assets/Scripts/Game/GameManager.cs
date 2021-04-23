@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
         {
             _isGameOver = false;
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 
