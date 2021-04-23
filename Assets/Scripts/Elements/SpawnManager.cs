@@ -47,10 +47,14 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnAsteroidRoutine()
     {
-        Vector3 posToSpwan = new Vector3(Random.Range(-8f, 8f), 7, 0);
-        GameObject newAsteroid = Instantiate(_asteroidPrefab, posToSpwan, Quaternion.identity);
-        newAsteroid.transform.parent = _asteroidContainer.transform;
-        yield return new WaitForSeconds(5.0f);
+        while (_stopSpawn == false)
+        {
+            Vector3 posToSpwan = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            GameObject newAsteroid = Instantiate(_asteroidPrefab, posToSpwan, Quaternion.identity);
+            newAsteroid.transform.parent = _asteroidContainer.transform;
+            yield return new WaitForSeconds(5.0f);
+        }
+        
     }
     
 

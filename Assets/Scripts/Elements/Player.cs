@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _score;
     private UIManager _uiManager;
+    [SerializeField]
+    private GameObject _damageLeft, _damageRight;
 
     // Start is called before the first frame update
     void Start()
@@ -107,7 +109,16 @@ public class Player : MonoBehaviour
             _lives--;
             _uiManager.CurrentLive(_lives);
 
-            if (_lives < 1)
+            if(_lives == 2)
+            {
+                _damageRight.gameObject.SetActive(true);
+            }
+            else if(_lives == 1)
+            {
+                _damageLeft.gameObject.SetActive(true);
+            }
+
+            else if (_lives < 1)
             {
                 _spawnManager.onPlayerDeath();
                 Destroy(this.gameObject);

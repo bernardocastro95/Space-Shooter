@@ -5,13 +5,14 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     [SerializeField]
-    private float _rotationSpeed = 30.0f;
-    private Player _player;
+    private float _rotationSpeed = 300.0f;
     [SerializeField]
     private float _speed = 2.0f;
     [SerializeField]
     private GameObject _explosionPrefab;
-    // Start is called before the first frame update
+    private Player _player;
+
+
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -20,6 +21,7 @@ public class Asteroid : MonoBehaviour
             Debug.LogError("Player NULL");
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -38,8 +40,23 @@ public class Asteroid : MonoBehaviour
         if(collision.tag == "Laser")
         {
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            if (_player != null)
+            {
+                _player.AddScore(20);
+            }
             Destroy(this.gameObject, .25f);
             Destroy(collision.gameObject);
+        }
+        if(collision.tag == "Player")
+        {
+            Player player = collision.transform.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();
+
+            }
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(this.gameObject, .25f);
         }
     }
 }
