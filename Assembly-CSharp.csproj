@@ -64,7 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Elements\Asteroid.cs" />
     <Compile Include="Assets\Scripts\Elements\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Elements\ExplosionBehavior.cs" />
     <Compile Include="Assets\Scripts\Elements\LaserBehavior.cs" />
     <Compile Include="Assets\Scripts\Elements\Player.cs" />
     <Compile Include="Assets\Scripts\Elements\SpawnManager.cs" />

@@ -11,13 +11,18 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawn = false;
     [SerializeField]
     private GameObject[] _powerups;
+    [SerializeField]
+    private GameObject _asteroidPrefab;
+    [SerializeField]
+    private GameObject _asteroidContainer;
 
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnTripleShotPowerupRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
+        StartCoroutine(SpawnAsteroidRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -30,15 +35,22 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
         }
     }
-    IEnumerator SpawnTripleShotPowerupRoutine()
+    IEnumerator SpawnPowerupRoutine()
     {
         while(_stopSpawn == false)
         {
-            Vector3 postToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             int randomPowerup = Random.Range(0, 3);
-            Instantiate(_powerups[randomPowerup], postToSpawn, Quaternion.identity);
+            Instantiate(_powerups[randomPowerup], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
+    }
+    IEnumerator SpawnAsteroidRoutine()
+    {
+        Vector3 posToSpwan = new Vector3(Random.Range(-8f, 8f), 7, 0);
+        GameObject newAsteroid = Instantiate(_asteroidPrefab, posToSpwan, Quaternion.identity);
+        newAsteroid.transform.parent = _asteroidContainer.transform;
+        yield return new WaitForSeconds(5.0f);
     }
     
 
