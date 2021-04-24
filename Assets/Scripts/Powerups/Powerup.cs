@@ -15,6 +15,8 @@ public class Powerup : MonoBehaviour
     }
     [SerializeField]
     private int _powerupId;
+    [SerializeField]
+    private AudioClip _powerupClip;
 
     // Update is called once per frame
     void Update()
@@ -22,6 +24,7 @@ public class Powerup : MonoBehaviour
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
         if(transform.position.y < -5f)
         {
+            
             Destroy(this.gameObject);
         }
     }
@@ -30,6 +33,7 @@ public class Powerup : MonoBehaviour
         if(collision.tag == "Player")
         {
             Player player = collision.transform.GetComponent<Player>();
+            AudioSource.PlayClipAtPoint(_powerupClip, Camera.main.transform.position);
             if(player != null)
             {
                 switch (_powerupId)
