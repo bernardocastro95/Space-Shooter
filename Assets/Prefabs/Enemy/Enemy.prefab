@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
+  _enemyLaserPrefab: {fileID: 6109246716941756259, guid: d3ee185ee1115634ca43107edf0035c6,
+    type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _explosionSource: {fileID: -2512172113619022286}
 --- !u!50 &-2573836146066034608
