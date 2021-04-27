@@ -46,13 +46,14 @@ public class Enemy : MonoBehaviour
         {
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
-            GameObject enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
+            Enemy e = gameObject.GetComponent<Enemy>();
+            Vector3 laserPos = new Vector3(e.transform.position.x, 0, e.transform.position.z);
+            GameObject enemyLaser = Instantiate(_enemyLaserPrefab, laserPos, Quaternion.identity);
             LaserBehavior[] lasers = enemyLaser.GetComponentsInChildren<LaserBehavior>();
             for(int i = 0; i < lasers.Length; i++)
             {
                 lasers[i].enemyShooter();
             }
-            Debug.Break();
  
         }
 

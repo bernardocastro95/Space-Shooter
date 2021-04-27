@@ -6,6 +6,7 @@ public class LaserBehavior : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 8f;
+    [SerializeField]
     private bool _enemyLaser = false;
     // Update is called once per frame
     void Update()
@@ -36,7 +37,7 @@ public class LaserBehavior : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        if (transform.position.y <= 7f)
+        if (transform.position.y <= -7f)
         {
             if (transform.parent != null)
             {
@@ -58,7 +59,7 @@ public class LaserBehavior : MonoBehaviour
             {
                 p.Damage();
             }
-            
+            Destroy(this.gameObject);
         }
     }
 }
