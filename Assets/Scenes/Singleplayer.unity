@@ -1521,6 +1521,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
   _gameOverText: {fileID: 1056748449}
   _restartText: {fileID: 216096155}
+  _mainMenu: {fileID: 1965644902}
+  _resume: {fileID: 102631792}
 --- !u!1 &935601225
 GameObject:
   m_ObjectHideFlags: 0

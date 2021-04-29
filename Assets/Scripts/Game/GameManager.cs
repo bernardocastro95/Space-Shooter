@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)
             {
                 _isGameOver = false;
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(1);        
             }
         } 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -51,5 +51,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager::GameIsOver() called");
         _isGameOver = true;
+    }
+    public void ResumeGame()
+    {
+        _panel.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }

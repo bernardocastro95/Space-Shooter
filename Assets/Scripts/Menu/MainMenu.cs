@@ -18,9 +18,11 @@ public class MainMenu : MonoBehaviour
     public void AccessSinglePlayer()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1;
     }
     public void AccessCoop()
     {
         SceneManager.LoadScene(2);
+        Time.timeScale = 1;
     }
 }

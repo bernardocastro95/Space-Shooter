@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class UIManager : MonoBehaviour
     private Text _gameOverText;
     [SerializeField]
     private Text _restartText;
+    [SerializeField]
+    private Button _mainMenu;
+    [SerializeField]
+    private Button _resume;
 
 
     private GameManager _gm;
@@ -31,6 +36,8 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError("Game Manager NULL");
         }
+        _mainMenu.onClick.AddListener(MainMenu);
+        _resume.onClick.AddListener(ResumeGame);
     }
 
     public void UpdateScore(int playerScore)
@@ -63,6 +70,15 @@ public class UIManager : MonoBehaviour
             _gameOverText.text = "";
             yield return new WaitForSeconds(.5f);
         }
+    }
+    public void ResumeGame()
+    {
+        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm.ResumeGame();
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
     
 }
