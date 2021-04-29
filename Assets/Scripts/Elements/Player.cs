@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private AudioClip _laserClip;
     [SerializeField]
     private GameManager _manager;
+    private Player _player1, _player2;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,13 @@ public class Player : MonoBehaviour
         
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _laserSource = GetComponent<AudioSource>();
+        _player1 = GameObject.Find("Player1").GetComponent<Player>();
+        _player2 = GameObject.Find("Player2").GetComponent<Player>();
+
+        if(_player1 == null || _player2 == null)
+        {
+            Debug.LogError("Players NULL");
+        }
 
         if (_spawnManager == null)
         {
@@ -69,6 +77,11 @@ public class Player : MonoBehaviour
         if (_manager._isCoop == false)
         {
             transform.position = new Vector3(0, 0, 0);
+        }
+        else if(_manager._isCoop == true)
+        {
+            _player1.transform.position = new Vector3(-6, 0, 0);
+            _player1.transform.position = new Vector3(6, 0, 0);
         }
     }
 

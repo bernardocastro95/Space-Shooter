@@ -1278,6 +1278,7 @@ MonoBehaviour:
   _damageRight: {fileID: 508775837}
   _laserSource: {fileID: 0}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _manager: {fileID: 0}
 --- !u!212 &961550049
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1929,7 +1930,7 @@ GameObject:
   - component: {fileID: 1675190359}
   - component: {fileID: 1675190360}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1960,6 +1961,7 @@ MonoBehaviour:
   _damageRight: {fileID: 2002365470}
   _laserSource: {fileID: 0}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  _manager: {fileID: 0}
 --- !u!212 &1675190357
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2432,6 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isGameOver: 0
+  _isCoop: 0
 --- !u!114 &1849127964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2445,6 +2448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isGameOver: 0
+  _isCoop: 0
 --- !u!4 &1849127965
 Transform:
   m_ObjectHideFlags: 0
