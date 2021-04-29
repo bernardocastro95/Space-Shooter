@@ -8,7 +8,8 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField]
     private Button _singleplayer, _coop;
-   public void LoadGame()
+    private GameManager _manager;
+    public void LoadGame()
     {
         SceneManager.LoadScene(1);
         _singleplayer.onClick.AddListener(AccessSinglePlayer);
@@ -20,6 +21,7 @@ public class MainMenu : MonoBehaviour
     }
     public void AccessCoop()
     {
+        _manager._isCoop = true;
         SceneManager.LoadScene(2);
     }
 }

@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _liveImage;
     [SerializeField]
+    private Image _liveImage2;
+    [SerializeField]
     private Sprite[] _livesDisplay;
     [SerializeField]
     private Text _gameOverText;
@@ -43,6 +45,7 @@ public class UIManager : MonoBehaviour
             GameOverSequence();
         } 
     }
+
     public void GameOverSequence()
     {
         _gm.GameIsOver();

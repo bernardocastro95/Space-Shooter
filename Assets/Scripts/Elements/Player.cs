@@ -33,22 +33,16 @@ public class Player : MonoBehaviour
     private AudioClip _laserClip;
     [SerializeField]
     private GameManager _manager;
-    private Player _player1, _player2;
+    public bool isPlayerOne = false, isPlayerTwo = false;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        
+       
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _laserSource = GetComponent<AudioSource>();
-        _player1 = GameObject.Find("Player1").GetComponent<Player>();
-        _player2 = GameObject.Find("Player2").GetComponent<Player>();
-
-        if(_player1 == null || _player2 == null)
-        {
-            Debug.LogError("Players NULL");
-        }
+        
 
         if (_spawnManager == null)
         {
@@ -77,23 +71,29 @@ public class Player : MonoBehaviour
         if (_manager._isCoop == false)
         {
             transform.position = new Vector3(0, 0, 0);
-        }
-        else if(_manager._isCoop == true)
-        {
-            _player1.transform.position = new Vector3(-6, 0, 0);
-            _player1.transform.position = new Vector3(6, 0, 0);
-        }
+        } 
     }
 
     // Update is called once per frame
     void Update()
     {
-        Tracker();
-
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if(isPlayerOne == true)
         {
-            Shooter();
+            Tracker();
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+            {
+                Shooter();
+            }
         }
+        else if(isPlayerTwo == true)
+        {
+            TrackerTwo();
+            ShooterTwo();
+            
+        }
+        
+
+       
     }
 
     void Tracker()
@@ -103,7 +103,40 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
       
-            transform.Translate(direction * ( _speed * _multiplier) * Time.deltaTime);
+        transform.Translate(direction * ( _speed * _multiplier) * Time.deltaTime);
+
+        if (transform.position.y >= 0 || transform.position.y <= 3.8f)
+        {
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
+        }
+
+        if (transform.position.x >= 11.5f)
+        {
+            transform.position = new Vector3(-11.5f, transform.position.y, 0);
+        }
+        else if (transform.position.x <= -11.5f)
+        {
+            transform.position = new Vector3(11.5f, transform.position.y, 0);
+        }
+    }
+    void TrackerTwo()
+    {
+
+        if (Input.GetKey(KeyCode.Keypad8))
+        {
+            transform.Translate(Vector3.up * (_speed * _multiplier) * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.Keypad2)){
+            transform.Translate(Vector3.down * (_speed * _multiplier) * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.Keypad4))
+        {
+            transform.Translate(Vector3.left * (_speed * _multiplier) * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.Keypad6))
+        {
+            transform.Translate(Vector3.right * (_speed * _multiplier) * Time.deltaTime);
+        }
 
         if (transform.position.y >= 0 || transform.position.y <= 3.8f)
         {
@@ -134,6 +167,26 @@ public class Player : MonoBehaviour
         }
         _laserSource.Play();
         
+    }
+    void ShooterTwo()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            _canFire = Time.time + _fireRate;
+
+            if (_isTripleShotEnabled == true)
+            {
+
+                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+            }
+            _laserSource.Play();
+        }
+       
+
     }
     public void Damage()
     {
@@ -167,6 +220,39 @@ public class Player : MonoBehaviour
            
         }
         
+    }
+    public void DamageTwo()
+    {
+
+        if (_isShieldEnabled == true)
+        {
+            _isShieldEnabled = false;
+            _shield.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            _lives--;
+            _uiManager.CurrentLive(_lives);
+
+            if (_lives == 2)
+            {
+                _damageRight.gameObject.SetActive(true);
+            }
+            else if (_lives == 1)
+            {
+                _damageLeft.gameObject.SetActive(true);
+            }
+
+            else if (_lives < 1)
+            {
+                _spawnManager.onPlayerDeath();
+                Destroy(this.gameObject);
+            }
+
+
+        }
+
     }
     public void TripleShotActive()
     {
