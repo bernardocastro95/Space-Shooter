@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _restartText;
 
+
     private GameManager _gm;
     // Start is called before the first frame update
     void Start()
@@ -63,4 +64,5 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(.5f);
         }
     }
+    
 }

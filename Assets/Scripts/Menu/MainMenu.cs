@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour
     }
     public void AccessCoop()
     {
-        _manager._isCoop = true;
         SceneManager.LoadScene(2);
     }
 }
