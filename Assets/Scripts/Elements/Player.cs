@@ -214,6 +214,7 @@ public class Player : MonoBehaviour
             else if (_lives < 1)
             {
                 _spawnManager.onPlayerDeath();
+                _uiManager.BestScore();
                 Destroy(this.gameObject);
             }
         
@@ -285,6 +286,6 @@ public class Player : MonoBehaviour
     public void AddScore(int points)
     {
         _score += points;
-        _uiManager.UpdateScore(_score);
+        _uiManager.UpdateScore();
     }
 }

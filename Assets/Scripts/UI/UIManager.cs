@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
+    private Text _bestText;
+    [SerializeField]
     private Image _liveImage;
     [SerializeField]
     private Image _liveImage2;
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour
     private Button _mainMenu;
     [SerializeField]
     private Button _resume;
+    public int score, bestScore;
 
 
     private GameManager _gm;
@@ -31,6 +34,8 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        bestScore = PlayerPrefs.GetInt("HighScore", 0);
+        _bestText.text = "Best: " + bestScore;
 
         if(_gm == null)
         {
@@ -40,9 +45,19 @@ public class UIManager : MonoBehaviour
         _resume.onClick.AddListener(ResumeGame);
     }
 
-    public void UpdateScore(int playerScore)
+    public void UpdateScore()
     {
-        _scoreText.text = "Score: " + playerScore.ToString();
+        score += 10;
+        _scoreText.text = "Score: " + score.ToString();
+    }
+    public void BestScore()
+    {
+        if(score > bestScore)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt("HighScore", bestScore);
+            _bestText.text = "Best: " + bestScore.ToString();
+        }
     }
     public void CurrentLive(int currentLives)
     {
